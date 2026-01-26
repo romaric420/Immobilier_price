@@ -154,3 +154,19 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
+
+
+# Footer 
+st.markdown("---")
+st.markdown(f"""
+<div style="
+    background-color: #6F4F28; 
+    padding: 20px; 
+    border-radius: 10px; 
+    text-align: center;
+">
+    <p style="color: white; margin: 5px;">Immobilier-Price Dashboard</p>
+    <p style="color: #ccc; font-size: 12px; margin: 5px;">© 2026 - Romaric</p>
+</div>
+""", unsafe_allow_html=True)
