@@ -2,12 +2,15 @@ name: Keep Streamlit Alive
 
 on:
   schedule:
-    - cron: '0 */6 * * *'  # Toutes les 6 heures
-  workflow_dispatch:  
+    - cron: '0 */4 * * *'
+  workflow_dispatch:
 
 jobs:
   keep-alive:
     runs-on: ubuntu-latest
     steps:
       - name: Ping Streamlit App
-        run: curl -I https://immobilierprice-version-1.streamlit.app/
+        run: |
+          echo "Ping de l'application Streamlit..."
+          curl -s -o /dev/null -w "Status: %{http_code}\n" https://VOTRE-APP.streamlit.app
+          echo "Ping termine"
