@@ -1,8 +1,7 @@
 name: Keep Streamlit Alive
-
 on:
   schedule:
-    - cron: '0 */4 * * *'
+    - cron: '*/15 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -12,5 +11,11 @@ jobs:
       - name: Ping Streamlit App
         run: |
           echo "Ping de l'application Streamlit..."
-          curl -s -o /dev/null -w "Status: %{http_code}\n" https://VOTRE-APP.streamlit.app
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 60 https://immobilierprice-version-1.streamlit.app/)
+          echo "Status: $HTTP_STATUS"
+          if [ "$HTTP_STATUS" -ne 200 ]; then
+            echo "App endormie, retry dans 30s..."
+            sleep 30
+            curl -s -o /dev/null --max-time 60 https://immobilierprice-version-1.streamlit.app/
+          fi
           echo "Ping termine"
